@@ -1,0 +1,71 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+const baseUrl = 'example.com'
+const locale = 'en'
+
+export interface Props {
+  url: string
+  title: string
+  description: string
+  keywords: string
+  image: {
+    url: string
+    alt: string
+    type: string
+    width: number
+    height: number
+  }
+}
+
+const { url, title, description, keywords, image } = Astro.props as Props
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Cevdet Arda Haran" />
+    <link rel="canonical" href={url} />
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:description" content={description} />
+    <!-- OpenGraph Image Tags -->
+    <meta property="og:image" content={image.url} />
+    <meta property="og:image:secure_url" content={image.url} />
+    <meta property="og:image:type" content={image.type} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt} />
+    <!-- Twitter Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content={baseUrl} />
+    <meta name="twitter:site" content="@cevdetardaharan" />
+    <meta name="twitter:creator" content="@cevdetardaharan" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image.url} />
+    <meta name="twitter:image:alt" content={image.alt} />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="container">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
